@@ -1,3 +1,3 @@
 # GENOME
-A Random Username and Profile picture Generator.
-#hello
+GENOME generates random credentials for you like username and a profile picture 
+which you are free to use anywhere
