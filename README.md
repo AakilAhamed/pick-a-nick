@@ -5,7 +5,7 @@ which you are free to use anywhere
 ## deep dive
 - [ ] get a collecion of usernames
 - [ ] generate a random username from the database
-- [ ] render profile picture from html script
+- [x] render profile picture from html script
 ## easy ones
 - [ ] loading screen
 - [ ] logo
