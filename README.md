@@ -1,6 +1,5 @@
-# GENOME
-GENOME generates random credentials for you like username and a profile picture 
-which you are free to use anywhere
+# pick-a-nick
+Because "Guest1234" just doesn't cut it anymore.
 # TO DO
 ## deep dive
 - [ ] get a collecion of usernames
