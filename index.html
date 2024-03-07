@@ -2,20 +2,26 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GENOME</title>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Avatar</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
-    <canvas id="patternCanvas" width="400" height="400"></canvas>
-
-    <button onclick="convertToPNG()">Convert to PNG</button>
-
-    <script src="./js/pfpGenerator.js"></script>
-
+  <div id="canvas-container">
+    <canvas id="myCanvas" width="300" height="300">
+      Your browser does not support the HTML canvas tag.
+    </canvas>
+    <div id="button-container">
+      <input type="color" id="headColorPicker" value="#ff0000"> Head Color
+      <input type="color" id="bodyColorPicker" value="#0000ff"> Body Color
+      <button onclick="toggleBackground()">Toggle Background</button><!--bg toggle-->
+      <button onclick="downloadCanvas()">Download</button> <!--download-->
+      <button onclick="drawCanvas()">Generate</button>
+    </div>
+    <script src="js/pfpGenerator.js"></script>
+  </div>
 </body>
 
 </html>

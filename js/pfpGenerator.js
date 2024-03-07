@@ -1,46 +1,109 @@
-function drawRandomPattern() {
-    const canvas = document.getElementById('patternCanvas');
-    const context = canvas.getContext('2d');
-  
-    const numSquares = 10;
-  
-    for (let i = 0; i < numSquares; i++) {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      const size = Math.random() * 50 + 20; // Random size between 20 and 70
-      const color = getRandomColor();
-  
-      context.fillStyle = color;
-      context.fillRect(x, y, size, size);
-    }
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+var useSolidColor = true; // Default to solid color
+
+// Get color picker elements
+var headColorPicker = document.getElementById("headColorPicker");
+var bodyColorPicker = document.getElementById("bodyColorPicker");
+
+// Add event listeners to color pickers
+headColorPicker.addEventListener("input", drawCanvas);
+bodyColorPicker.addEventListener("input", drawCanvas);
+
+// Function to toggle background between solid color and image
+function toggleBackground() {
+  useSolidColor = !useSolidColor;
+  drawCanvas();
+}
+
+// Function to draw canvas
+function drawCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (!useSolidColor) {
+    var img = new Image();
+    img.src = 'forest.jpeg';
+    img.onload = function () {
+      var blurredImage = applyBlur(img, 5); //draw  blurred image on canvas
+      ctx.drawImage(blurredImage, 0, 0, canvas.width, canvas.height);
+      drawAvatar();
+    };
+  } else {//or fill random solid color(default)
+    ctx.fillStyle = getRandomColor();
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    drawAvatar();
   }
-  
-  function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+}
+
+// Function to draw avatar
+function drawAvatar() {
+  var avatarSize = 150;
+  var centerX = canvas.width / 2;
+  var centerY = canvas.height / 2;
+  var bodyY = centerY + avatarSize / 4;
+
+  // Get selected colors from color pickers
+  var headColor = headColorPicker.value;
+  var bodyColor = bodyColorPicker.value;
+
+  ctx.beginPath();
+  ctx.arc(centerX, centerY - avatarSize / 4, avatarSize / 4, 0, 2 * Math.PI);
+  ctx.fillStyle = headColor; // Use selected head color
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(centerX, bodyY + avatarSize / 4, avatarSize / 2, 0, Math.PI, true);
+  ctx.fillStyle = bodyColor; // Use selected body color
+  ctx.fill();
+}
+
+// Function to apply blur effect to an image
+function applyBlur(img, radius) {
+  var blurryCanvas = document.createElement('canvas');
+  var blurryCtx = blurryCanvas.getContext('2d');
+  blurryCanvas.width = img.width;
+  blurryCanvas.height = img.height;
+  blurryCtx.filter = 'blur(' + radius + 'px)';
+  blurryCtx.drawImage(img, 0, 0, img.width, img.height);
+  return blurryCanvas;
+}
+
+// Function to generate a random color
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
   }
-  
-  function convertToPNG() {
-    const canvas = document.getElementById('patternCanvas');
-  
-    // Use html2canvas to capture the canvas as an image
-    html2canvas(canvas).then(canvas => {
-      // Convert the canvas content to a data URL
-      const dataURL = canvas.toDataURL('image/png');
-  
-      // Create a link element and trigger a download
-      const link = document.createElement('a');
-      link.href = dataURL;
-      link.download = 'pattern.png';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    });
+  return color;
+}
+
+// Function to download the canvas as an image file
+function downloadCanvas() {
+  var downloadLink = document.createElement('a');
+  downloadLink.setAttribute('download', 'avatar.png');
+  var canvasData = canvas.toDataURL('image/png');
+  var blob = dataURItoBlob(canvasData);
+  var url = window.URL.createObjectURL(blob);
+  downloadLink.setAttribute('href', url);
+  downloadLink.click();
+  window.URL.revokeObjectURL(url); // Free up memory
+}
+
+// Function to convert data URI to Blob
+function dataURItoBlob(dataURI) {
+  var byteString;
+  if (dataURI.split(',')[0].indexOf('base64') >= 0)
+    byteString = atob(dataURI.split(',')[1]);
+  else
+    byteString = unescape(dataURI.split(',')[1]);
+  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  var ia = new Uint8Array(byteString.length);
+  for (var i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
   }
-  
-  // Draw the random pattern when the page loads
-  drawRandomPattern();
+  return new Blob([ia], { type: mimeString });
+}
+
+// Initial drawing of canvas
+drawCanvas();
