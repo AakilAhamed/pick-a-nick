@@ -32,7 +32,7 @@ function drawCanvas() {
       drawAvatar();
     };
   } else {
-    ctx.fillStyle = bgColorPicker.value;    
+    ctx.fillStyle = bgColorPicker.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     drawAvatar();
   }
@@ -106,6 +106,25 @@ function dataURItoBlob(dataURI) {
     ia[i] = byteString.charCodeAt(i);
   }
   return new Blob([ia], { type: mimeString });
+}
+
+function uploadCustomBackground() {
+  var bgImageInput = document.getElementById("bgImageInput");
+  bgImageInput.click(); // Trigger the file input click event
+  bgImageInput.addEventListener("change", function () {
+    var file = bgImageInput.files[0];
+    var reader = new FileReader();
+    reader.onload = function (event) {
+      var img = new Image();
+      img.src = event.target.result;
+      img.onload = function () {
+        var blurredImage = applyBlur(img, 5); // Draw blurred image on canvas
+        ctx.drawImage(blurredImage, 0, 0, canvas.width, canvas.height);
+        drawAvatar();
+      };
+    };
+    reader.readAsDataURL(file);
+  });
 }
 
 // Initial drawing of canvas

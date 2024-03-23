@@ -9,16 +9,22 @@
 </head>
 
 <body>
-  <div id="canvas-container">
-    <canvas id="myCanvas" width="300" height="300">
-      Your browser does not support the HTML canvas tag.
-    </canvas>
-    <div id="button-container">
+  <div class="container">
+    <div class="canvas-container">
+      <canvas id="myCanvas" width="300" height="300">
+        Your browser does not support the HTML canvas tag.
+      </canvas>
+    </div>
+    <div class="pickers">
       <input type="color" id="headColorPicker" value="#818181"> Head Color
       <input type="color" id="bodyColorPicker" value="#030303"> Body Color
       <input type="color" id="bgColorPicker" value="#99ddff"> Background Color
+    </div>
+    <div id="button-container">
       <button onclick="toggleBackground()">Toggle Background</button><!--bg toggle-->
       <button onclick="downloadCanvas()">Download</button> <!--download-->
+      <button onclick="uploadCustomBackground()">Custom BG</button><!--for custom bg-->
+      <input type="file" id="bgImageInput" style="display: none;" accept="image/*">
     </div>
     <script src="js/pfpGenerator.js"></script>
   </div>

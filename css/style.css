@@ -1,13 +1,23 @@
 body {
-    background-color: #0d1117;
+    background-color: #ffffff;
     color: #fff;
     display: flex;
-    justify-content: space-between; /* Align items to left and canvas to right */
+    justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
 }
 
+.container {
+    border-radius: 15px;
+    border: 1px solid #d3d3d3;
+    padding: 25px;
+    background-color: #0d1117;
+}
+
+.canvas-container {
+    padding-bottom: 8px;
+}
 
 canvas {
     border: 1px solid #d3d3d3;
@@ -15,39 +25,40 @@ canvas {
     box-shadow: 0 0 15px 5px rgba(75, 75, 75, 0.5);
 }
 
+.pickers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    padding-bottom: 8px;
+}
+
+
+input[type="color"] {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    padding-bottom: 8px;
+}
 
 button {
-    margin-top: 1px;
-    padding: 8px 16px;
-    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    background-color: #000000;
-    color: #fff;
-    border: 1px solid #fff;
-    border-radius: 2px;
-    padding: 10px 20px;
-    position: relative;
-    overflow: hidden;
-}
-
-button:before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
-    transition: all 0.3s ease;
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-button:hover:before {
-    transform: scale(2);
+    background-color: #0d1117;
+    color: rgb(255, 255, 255);
+    border: 2px solid #e7e7e7;
 }
 
 button:hover {
-    color: #ffffff;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    background-color: #b7ebff;
+    color: rgb(110, 110, 110);
 }
