@@ -5,10 +5,13 @@ var useSolidColor = true; // Default to solid color
 // Get color picker elements
 var headColorPicker = document.getElementById("headColorPicker");
 var bodyColorPicker = document.getElementById("bodyColorPicker");
+var bgColorPicker = document.getElementById("bgColorPicker");
+
 
 // Add event listeners to color pickers
 headColorPicker.addEventListener("input", drawCanvas);
 bodyColorPicker.addEventListener("input", drawCanvas);
+bgColorPicker.addEventListener("input", drawCanvas);
 
 // Function to toggle background between solid color and image
 function toggleBackground() {
@@ -28,8 +31,8 @@ function drawCanvas() {
       ctx.drawImage(blurredImage, 0, 0, canvas.width, canvas.height);
       drawAvatar();
     };
-  } else {//or fill random solid color(default)
-    ctx.fillStyle = getRandomColor();
+  } else {
+    ctx.fillStyle = bgColorPicker.value;    
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     drawAvatar();
   }
@@ -69,14 +72,14 @@ function applyBlur(img, radius) {
 }
 
 // Function to generate a random color
-function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
+// function getRandomColor() {
+//   var letters = '0123456789ABCDEF';
+//   var color = '#';
+//   for (var i = 0; i < 6; i++) {
+//     color += letters[Math.floor(Math.random() * 16)];
+//   }
+//   return color;
+// }
 
 // Function to download the canvas as an image file
 function downloadCanvas() {
